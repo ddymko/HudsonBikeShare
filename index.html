@@ -8,111 +8,12 @@
             width: 100%;
         }
     </style>
+    <script src="assets/map.min.js"></script>
 </head>
 
 <body>
     <h3>Hudson Bike Share</h3>
     <div id="map"></div>
-    <script>
-        function initMap() {
-
-            var uluru = {
-                lat: 40.7474,
-                lng: -74.0279
-            };
-            var map = new google.maps.Map(document.getElementById('map'), {
-                zoom: 14,
-                center: uluru
-            });
-
-            var request = new XMLHttpRequest();
-            request.open("GET", 'https://nextbike.net/maps/nextbike-official.xml', false);
-            request.send();
-            var xml = request.responseXML;
-
-            user = xmlToJson(xml.getElementsByTagName("markers")[0]);
-
-            function xmlToJson(xml) {
-
-                // Create the return object
-                var obj = {};
-
-                if (xml.nodeType == 1) { // element
-                    // do attributes
-                    if (xml.attributes.length > 0) {
-                        obj["attributes"] = {};
-                        for (var j = 0; j < xml.attributes.length; j++) {
-                            var attribute = xml.attributes.item(j);
-                            obj["attributes"][attribute.nodeName] = attribute.nodeValue;
-                        }
-                    }
-                } else if (xml.nodeType == 3) { // text
-                    obj = xml.nodeValue;
-                }
-
-                // do children
-                if (xml.hasChildNodes()) {
-                    for (var i = 0; i < xml.childNodes.length; i++) {
-                        var item = xml.childNodes.item(i);
-                        var nodeName = item.nodeName;
-                        if (typeof(obj[nodeName]) == "undefined") {
-                            obj[nodeName] = xmlToJson(item);
-                        } else {
-                            if (typeof(obj[nodeName].push) == "undefined") {
-                                var old = obj[nodeName];
-                                obj[nodeName] = [];
-                                obj[nodeName].push(old);
-                            }
-                            obj[nodeName].push(xmlToJson(item));
-                        }
-                    }
-                }
-                return obj;
-            };
-            var country = user.country;
-            var data;
-            for (k in country) {
-
-                if (country[k].attributes.name === 'Hudsonbikeshare') {
-                    data = country[k].city.place
-                }
-            }
-
-            data2 = {};
-            for (j in data) {
-                data2[j] = {
-                    loc: [data[j].attributes.lat,
-                        data[j].attributes.lng,
-                        data[j].attributes.name,
-                        data[j].attributes.bikes
-                    ]
-                }
-
-            }
-
-            infowindow = new google.maps.InfoWindow();
-            var marker;
-            for (i in data2) {
-                var coords = data2[i];
-                marker = new google.maps.Marker({
-                    position: new google.maps.LatLng(coords.loc[0], coords.loc[1]),
-                    map: map,
-                });
-                content = coords.loc[2] + " - Bikes available: " + coords.loc[3];
-
-                google.maps.event.addListener(marker, 'click', (function(marker, content, infowindow) {
-                    return function() {
-                        infowindow.close();
-                        infowindow.setContent(content);
-                        infowindow.open(map, marker);
-                    };
-                })(marker, content, infowindow));
-
-            }
-
-        }
-    </script>
-
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC_Rs_qAnZzkQleb-yDmRUMhfy8hy6_IFM&callback=initMap">
     </script>
 </body>
