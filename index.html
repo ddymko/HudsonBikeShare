@@ -7,18 +7,32 @@
          width: 100%;
          }
          .overall{
-           padding-left: 2%;
-           padding-right: 2%;
+         padding-left: 2%;
+         padding-right: 2%;
+         }
+         .btn-group.bootstrap-select {
+         padding-bottom: 2%;
          }
       </style>
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/css/bootstrap-select.min.css">
    </head>
    <body>
       <div class="overall">
-         <h1>Hudson BikeShare</h1>
-         <p class="lead">Quick and easy way to see where bikes are available.</p>
+         <h1>NextBike BikeShare</h1>
+         <p class="lead">Quick and easy way to see where bikes are available from Nextbike.</p>
+         <select class="selectpicker" id="city_select" data-live-search="true">
+            <
+            <option>-----</option>
+         </select>
          <div id="map"></div>
       </div>
+      <!-- <script src="assets/map.min.js"></script> -->
+      <script
+         src="https://code.jquery.com/jquery-3.1.1.slim.min.js"
+         integrity="sha256-/SIrNqv8h6QGKDuNoLGA4iret+kyesCkHGzVUUV0shc="
+         crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/bootstrap-select.min.js"></script>
       <script src="assets/map.min.js"></script>
       <script async defer src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
       <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC_Rs_qAnZzkQleb-yDmRUMhfy8hy6_IFM&callback=initMap"></script>
