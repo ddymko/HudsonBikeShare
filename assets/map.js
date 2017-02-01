@@ -10,7 +10,7 @@ function initMap() {
     });
 
     var request = new XMLHttpRequest();
-    request.open("GET", 'https://nextbike.net/maps/nextbike-official.json', false);
+    request.open('GET', 'https://nextbike.net/maps/nextbike-official.json', false);
     request.send();
     var json = JSON.parse(request.responseText);
     var country = json.countries;
@@ -23,9 +23,7 @@ function initMap() {
     });
 
     $(function() {
-        $('#city_select').on("change", function() {
-
-
+        $('#city_select').on('change', function() {
             var value = this.value.split(',');
             $(country).each(function(i, el) {
                 $(el.cities).each(function(e, le) {
@@ -34,14 +32,7 @@ function initMap() {
                     }
                 });
             });
-
-            map = new google.maps.Map(document.getElementById('map'), {
-                zoom: 14,
-                center: {
-                    lat: Number(value[0]),
-                    lng: Number(value[1])
-                }
-            });
+            map.setCenter({lat: Number(value[0]), lng: Number(value[1])});
 
             infowindow = new google.maps.InfoWindow();
             var marker;
@@ -50,7 +41,7 @@ function initMap() {
                     position: new google.maps.LatLng(data[i].lat, data[i].lng),
                     map: map,
                 });
-                content = data[i].name + " - Bikes available: " + data[i].bikes;
+                content = data[i].name + ' - Bikes available: ' + data[i].bikes;
 
                 google.maps.event.addListener(marker, 'click', (function(marker, content, infowindow) {
                     return function() {
